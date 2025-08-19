@@ -5,6 +5,7 @@
         neovim
         ripgrep
         fd
+        lazygit
     ];
     shellHook = ''
     echo "Welcome to your Neovim dev shell!"
