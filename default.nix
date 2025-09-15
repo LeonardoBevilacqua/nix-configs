@@ -8,6 +8,12 @@ in
 pkgs.mkShell {
     name = "nvim-dev-env";
     buildInputs = neovimConfig.packages ++ devtools ++ languages;
-    shellHook = neovimConfig.shellHook;
+    shell = "${pkgs.bashInteractive}/bin/bash";
+    shellHook = ''
+    echo "Sourcing project .bashrc"
+    source ${toString ./bashrc}
+    ${neovimConfig.shellHook}
+    echo "✅ Environment ready!"
+    '';
 }
 
