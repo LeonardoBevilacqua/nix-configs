@@ -10,8 +10,6 @@ pkgs.mkShell {
     buildInputs = neovimConfig.packages ++ devtools ++ languages;
     shell = "${pkgs.bashInteractive}/bin/bash";
     shellHook = ''
-    echo "Sourcing project .bashrc"
-    source ${toString ./bashrc}
     ${neovimConfig.shellHook}
     echo "✅ Environment ready!"
     '';
