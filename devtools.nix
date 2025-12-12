@@ -5,5 +5,6 @@ with pkgs; [
     unzip
     tmux
     pnpm
+    bashInteractive
     # direnv moved to env or home manager
 ]

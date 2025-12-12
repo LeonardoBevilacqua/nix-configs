@@ -11,6 +11,7 @@ pkgs.mkShell {
     shell = "${pkgs.bashInteractive}/bin/bash";
     shellHook = ''
     ${neovimConfig.shellHook}
+    export SHELL=${pkgs.bashInteractive}/bin/bash
     echo "✅ Environment ready!"
     '';
 }
