@@ -21,7 +21,7 @@
                     home-manager = {
                         useGlobalPkgs = true;
                         useUserPackages = true;
-                        users.leonardo = import ../../home-manager/home.nix;
+                        users.leonardo = import ../../home/home.nix;
                         backupFileExtension = "backup";
                     };
                 }
