@@ -16,6 +16,11 @@ in
   home.file = {
   };
 
+  xdg.configFile = {
+    "nvim" = {
+        source = config.lib.file.mkOutOfStoreSymlink "/home/leonardo/dotfiles/nvim";
+        recursive = true;
+    };
   };
 
   home.sessionVariables = {
