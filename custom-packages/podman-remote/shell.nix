@@ -7,7 +7,7 @@ nixpkgs.mkShell {
 
   shellHook = ''
     alias podman="podman-remote-static-linux_amd64"
-    alias podman-compose="podman-compose --podman-path result/bin/podman-remote-static-linux_amd64"
+    alias podman-compose="podman-compose --podman-path $(which podman-remote-static-linux_amd64)"
   '';
 }
 
