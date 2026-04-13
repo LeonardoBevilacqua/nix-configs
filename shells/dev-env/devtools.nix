@@ -7,5 +7,5 @@ with pkgs; [
     pnpm
     bashInteractive
     gnumake
-    # direnv moved to env or home manager
+    tree-sitter
 ]
