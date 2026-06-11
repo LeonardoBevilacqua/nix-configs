@@ -21,6 +21,10 @@ in
         source = config.lib.file.mkOutOfStoreSymlink "/home/leonardo/dotfiles/nvim";
         recursive = true;
     };
+    "tmux" = {
+        source = config.lib.file.mkOutOfStoreSymlink "/home/leonardo/dotfiles/tmux";
+        recursive = true;
+    };
   };
 
   home.sessionVariables = {
