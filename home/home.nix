@@ -17,12 +17,15 @@ let
     };
 in
 {
+  fonts.fontconfig.enable = true;
   home.username = "leonardo";
   home.homeDirectory = "/home/leonardo";
 
   home.stateVersion = "25.11"; 
 
-  home.packages = neovimConfig.packages ++ devtools ++ languages;
+  home.packages = neovimConfig.packages ++ devtools ++ languages ++ [
+    pkgs.nerd-fonts.jetbrains-mono
+  ];
 
   home.file = {
   };
