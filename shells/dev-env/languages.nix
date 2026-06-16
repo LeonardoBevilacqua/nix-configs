@@ -3,7 +3,7 @@
 with pkgs; [
     python3
     lua
-    nodejs_20
+    nodejs_22
     jdk21
     gcc
 ]
