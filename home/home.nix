@@ -9,7 +9,7 @@ let
         ls = "ls --color=auto";
         ll = "ls -l";
         la = "ls -A";
-        dev = "nix develop ~/nix-tutorial/nix-configs/shells/dev-env";
+        dev = "nix develop ${config.home.homeDirectory}/dotfiles/nix-configs/shells/dev-env";
         ".." = "cd ..";
     };
     sharedSessionVariables = {
@@ -18,8 +18,6 @@ let
 in
 {
   fonts.fontconfig.enable = true;
-  home.username = "leonardo";
-  home.homeDirectory = "/home/leonardo";
 
   home.stateVersion = "25.11"; 
 
@@ -32,11 +30,11 @@ in
 
   xdg.configFile = {
     "nvim" = {
-        source = config.lib.file.mkOutOfStoreSymlink "/home/leonardo/dotfiles/nvim";
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/nvim";
         recursive = true;
     };
     "tmux" = {
-        source = config.lib.file.mkOutOfStoreSymlink "/home/leonardo/dotfiles/tmux";
+        source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/tmux";
         recursive = true;
     };
   };
