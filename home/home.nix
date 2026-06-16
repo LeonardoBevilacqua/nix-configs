@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let 
     neovimConfig = import ../shells/dev-env/neovim.nix { inherit pkgs; };
@@ -67,6 +67,40 @@ in
               PS1="$PS1"'\[\033[01;34m\]\W' # current working directory in color blue
               PS1="$PS1"' \[\033[33m\]$PS1_CMD1 ' # git branch
               PS1="$PS1"'\[\033[00m\]\n\$ ' # prompt in new line with color white
+          '';
+      };
+
+      zsh = {
+          enable = true;
+          shellAliases = sharedAliases;
+          sessionVariables = sharedSessionVariables;
+          history.ignoreDups = true;
+          history.ignoreSpace = true;
+          defaultKeymap = "viins";
+          initContent = lib.mkBefore ''
+          export JAVA_HOME=$(/usr/libexec/java_home)
+          typeset -U path
+
+          path=(
+            $HOME/.nix-profile/bin
+            /nix/var/nix/profiles/default/bin
+            $JAVA_HOME/bin
+            $path
+          )
+
+          export PATH
+
+          # Zsh equivalent to: bind 'set completion-ignore-case on'
+          zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+          # Zsh equivalent to your exact Bash prompt and git status
+          autoload -Uz vcs_info
+          precmd() { vcs_info }
+          zstyle ':vcs_info:git:*' formats '%b'
+
+          # Clean, standard Zsh string interpolation that Nix won't trip over
+          PROMPT="''${DEBIAN_CHROOT:+($DEBIAN_CHROOT)}%F{green}%n %F{blue}%1~ %F{yellow}''${vcs_info_msg_0_}%f
+          %# "
           '';
       };
   };
