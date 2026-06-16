@@ -4,6 +4,17 @@ let
     neovimConfig = import ../shells/dev-env/neovim.nix { inherit pkgs; };
     devtools = import ../shells/dev-env/devtools.nix { inherit pkgs; };
     languages = import ../shells/dev-env/languages.nix { inherit pkgs; };
+
+    sharedAliases = {
+        ls = "ls --color=auto";
+        ll = "ls -l";
+        la = "ls -A";
+        dev = "nix develop ~/nix-tutorial/nix-configs/shells/dev-env";
+        ".." = "cd ..";
+    };
+    sharedSessionVariables = {
+        NIX_SHELL_PRESERVE_PROMPT = 1;
+    };
 in
 {
   home.username = "leonardo";
@@ -44,16 +55,8 @@ in
           enable = true;
           historyControl = [ "ignoreboth" ];
           shellOptions = [ "histappend" "checkwinsize" "extglob" "globstar" "checkjobs" ];
-          shellAliases = {
-              ls = "ls --color=auto";
-              ll = "ls -l";
-              la = "ls -A";
-              dev = "nix develop ~/nix-tutorial/nix-configs/shells/dev-env";
-              ".." = "cd ..";
-          };
-          sessionVariables = {
-              NIX_SHELL_PRESERVE_PROMPT = 1;
-          };
+          shellAliases = sharedAliases;
+          sessionVariables = sharedSessionVariables;
           initExtra = ''
               set -o vi
               bind 'set completion-ignore-case on'
