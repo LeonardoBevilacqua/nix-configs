@@ -23,6 +23,7 @@
             ./home.nix
         ];
       };
+      # home-manager switch --flake .#leonardobevilacqua
       homeConfigurations."leonardobevilacqua" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.aarch64-darwin;
         modules = [
