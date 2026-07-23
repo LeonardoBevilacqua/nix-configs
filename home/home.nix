@@ -86,6 +86,7 @@ in
             $HOME/.nix-profile/bin
             /nix/var/nix/profiles/default/bin
             $JAVA_HOME/bin
+            $HOME/.local/bin
             $path
           )
 
@@ -95,12 +96,15 @@ in
           zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
           # Zsh equivalent to your exact Bash prompt and git status
+          setopt PROMPT_SUBST
           autoload -Uz vcs_info
           precmd() { vcs_info }
           zstyle ':vcs_info:git:*' formats '%b'
 
-          # Clean, standard Zsh string interpolation that Nix won't trip over
-          PROMPT="''${DEBIAN_CHROOT:+($DEBIAN_CHROOT)}%F{green}%n %F{blue}%1~ %F{yellow}''${vcs_info_msg_0_}%f
+          # \''${vcs_info_msg_0_} is backslash-escaped so it stays literal in
+          # PROMPT and is re-expanded by PROMPT_SUBST on every prompt draw,
+          # instead of being expanded once (to empty) at shell startup.
+          PROMPT="''${DEBIAN_CHROOT:+($DEBIAN_CHROOT)}%F{green}%n %F{blue}%1~ %F{yellow}\''${vcs_info_msg_0_}%f
           %# "
           '';
       };
