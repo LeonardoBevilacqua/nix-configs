@@ -5,6 +5,7 @@ with pkgs; [
     unzip
     tmux
     pnpm
+    yarn
     bashInteractive
     gnumake
     tree-sitter
