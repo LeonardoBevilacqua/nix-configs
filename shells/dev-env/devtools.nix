@@ -9,4 +9,5 @@ with pkgs; [
     bashInteractive
     gnumake
     tree-sitter
+    diff-so-fancy
 ]
