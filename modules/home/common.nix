@@ -37,6 +37,14 @@
           source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/tmux";
           recursive = true;
         };
+        "git" = {
+          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/git";
+          recursive = true;
+        };
+        "lazygit" = {
+          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/lazygit";
+          recursive = true;
+        };
       };
 
       home.sessionVariables = {
@@ -91,6 +99,7 @@
             )
 
             export PATH
+            export XDG_CONFIG_HOME="$HOME/.config"
 
             # Zsh equivalent to: bind 'set completion-ignore-case on'
             zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
