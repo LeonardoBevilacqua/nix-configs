@@ -11,6 +11,10 @@
     - [Networking in the installer](https://nixos.org/manual/nixos/stable/#sec-installation-manual-networking)
 - [Complete Guide to Disk Partitioning in Linux for Maximum Performance (2025)](https://cavecreekcoffee.com/linux-guides/complete-guide-to-disk-partitioning-in-linux-for-maximum-performance-2025/)
 
+## 0. Starting the live cd
+
+When booting the live cd, if the font size is to small, we can use `setfont -d` to double the font size.
+
 ## 1. Checking network
 
 - The boot process should have the networking services running. This will be required by the installer.
@@ -26,6 +30,8 @@ We can continue with installation from a different machine, connecting with ssh.
 - Make sure to switch into sudo with `sudo -i`;
 - Use `lsblk` to list the all available blocks of the devices:
     - Should look for `/dev/sdX` or `/dev/vdX`, representing out target driver. The `sdX` represent a traditional physical disk while `vdX` represents a virtual disk.
+    - Use `lsblk -f` to list with `filesystem` and label information.
+    - We can later include the disc path, with `lsblk /dev/sdX` to only show one, in case of multiple disks.
 - There are some tools manage the partitions like `cfdisk`, `fdisk` or `parted`:
     - The "Manual installation" and "Complete Guide to Disk Partitioning in Linux for Maximum Performance (2025)" explains how to do it with `parted` while "How to Install NixOS From Scratch" explains how to do it with `cfdisk`. For this guide, `cfdisk` will be documented.
 
@@ -35,7 +41,9 @@ For this guide, we'll separate the `/root` and `/home` partitions. If we want to
 
 - Use `cfdisk /dev/sdX` to start the program;
 - Select the `gpt labels`. The GUID Partition Table (GPT) partitioning is the modern standard, recommended for must Linux installations;
-- Set up 1GB for the "`/boot` partition", with the type `EFI System`. Recommended use `ext4 filesystem` for maximum compatibility;
+    - If the disk is not empty, this selection could not show up. Use `cfdisk --zero /dev/sdX` to force a zero partition scheme.
+- Set up 1GB for the "`/boot` partition", with the type `EFI System`. Recommended use `FAT32 filesystem` or `ext4 filesystem`.;
+    - In this guide we will use `systemd-boot`, which requires `FAT32 filesystem`.
 - Set up 8GB or more, based on RAM, for the "Swap partition" with the type `Linux swap`;
 - Set up 30-50GB for the "`/root` partition", with the type `Linux filesystem` or `Linux root (x86-64)`. Recommended use `ext4 filesystem`;
 - Set up the remaining space for the "`/home` partition", with the type `Linux filesystem` or `Linux home`. Recommended use `ext4 filesystem` or `XFS` for large files, recommended for media servers or big data processing.
@@ -44,7 +52,8 @@ Use `lsblk` again to confirm the partitions.
 
 ## 3. Format the partitions
 
-- Use `mkfs.ext4 -L boot /dev/sdX1` to format the boot partition;
+- Use `mkfs.fat -F 32 -n boot /dev/sdX1` to format the boot partition;
+    - Or `sudo mkfs.ext4 -L boot /dev/sdX1` with not required a `FAT32 filesystem`.
 - Use `mkswap -L swap /dev/sdX2` to format the swap partition;
 - Use `mkfs.ext4 -L root /dev/sdX3` to format the root partition;
 - Use `mkfs.ext4 -L home /dev/sdX4` to format the home partition.
@@ -175,3 +184,11 @@ For this configuration we will include flakes and home manager.
 - Use `nixos-install --flake /mnt/etc/nixos#bluesun`;
 - Use `nixos-enter --root /mnt -c 'passwd leonardo'` to create the user;
 - Reboot the system.
+
+### 5.2. Post install notes
+
+- During the installation, the `/boot` partition was formatted as `ext4` while we were trying to install `systemd-boot`. This caused an error, since it requires a `FAT32 filesystem`. To fix the issue:
+    - Used `umount /mnt/boot` to unmount the boot partition;
+    - Used `mkfs.fat -F 32 -n boot /dev/sdX1` to reformatted to `FAT32`;
+    - Used `mount /dev/sdX1 /mnt/boot` to mount the boot partition again;
+    - Used `nixos-generate-config --root /mnt` to regenerate the `hadware-configuration.nix`.
