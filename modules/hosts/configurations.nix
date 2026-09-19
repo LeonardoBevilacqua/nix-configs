@@ -12,5 +12,19 @@
       specialArgs = { inherit inputs; };
       modules = [ config.flake.modules.nixos.graphical ];
     };
+
+    nixos-bluesun = inputs.nixpkgs-stable.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+            config.flake.modules.nixos.bluesun
+            {
+                nixpkgs.pkgs = import inputs.nixpkgs-stable {
+                    system = "x86_64-linux";
+                    # config.allowUnfree = true;
+                };
+            }
+        ];
+    };
   };
 }
