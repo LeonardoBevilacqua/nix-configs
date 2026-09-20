@@ -79,7 +79,7 @@ For this configuration we will include flakes and home manager.
 - `flake.nix`:
 ```nix
 {
-  description = "Desktop, nickname Bluesun, NixOS";
+  description = "Desktop, nickname <HOSTNAME>, NixOS";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-26.05";
@@ -90,7 +90,7 @@ For this configuration we will include flakes and home manager.
   };
 
   outputs = { self, nixpkgs, home-manager, ... }: {
-    nixosConfigurations.bluesun = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.<HOSTNAME> = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
@@ -99,7 +99,7 @@ For this configuration we will include flakes and home manager.
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.leonardo = import ./home.nix;
+            users.<USERNAME> = import ./home.nix;
             backupFileExtension = "backup";
           };
         }
@@ -113,61 +113,85 @@ For this configuration we will include flakes and home manager.
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-    ];
+  imports = [ ./hardware-configuration.nix ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "bluesun";
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  networking.hostName = "<HOSTNAME>";
   networking.networkmanager.enable = true;
 
-  time.timeZone = "America/Los_Angeles"; # update
+  time.timeZone = "America/Sao_Paulo";
 
-  # use cosmic and sway
-  # services.displayManager.ly.enable = true;
-  # services.xserver = {
-  #   enable = true;
-  #   autoRepeatDelay = 200;
-  #   autoRepeatInterval = 35;
-  #   windowManager.qtile.enable = true;
-  # };
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_TIME = "pt_BR.UTF-8";
+      LC_MONETARY = "pt_BR.UTF-8";
+      LC_NUMERIC = "pt_BR.UTF-8";
+      LC_PAPER = "pt_BR.UTF-8";
+      LC_MEASUREMENT = "pt_BR.UTF-8";
+    };
+  };
 
-  users.users.leonardo = {
+  services.displayManager.cosmic-greeter.enable = true;
+  services.desktopManager.cosmic.enable = true;
+  environment.cosmic.excludePackages = with pkgs; [
+    cosmic-term
+  ];
+
+  services.xserver.xkb = {
+    layout = "us";
+    variant = "altgr_intl";
+  };
+
+  users.users.<USERNAME> = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    packages = with pkgs; [
-      tree
-    ];
   };
 
   programs.firefox.enable = true;
 
   environment.systemPackages = with pkgs; [
-    vim
-    wget
-    alacritty
-    git
-  ];
+     vim
+     alacritty
+     git
+   ];
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
 
+  services.openssh.enable = true;
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+  nix.settings.auto-optimise-store = true;
+  boot.loader.systemd-boot.configurationLimit = 5;
+
   system.stateVersion = "26.05";
 
 }
+
 ```
 - `home.nix`
 ```nix
 { config, pkgs, ... }:
 
 {
-  home.username = "leonardo";
-  home.homeDirectory = "/home/leonardo";
+  home.username = "<USERNAME>";
+  home.homeDirectory = "/home/<USERNAME>";
   programs.git.enable = true;
   home.stateVersion = "26.05";
   programs.bash = {
@@ -181,8 +205,8 @@ For this configuration we will include flakes and home manager.
 
 ### 5.1. Install
 
-- Use `nixos-install --flake /mnt/etc/nixos#bluesun`;
-- Use `nixos-enter --root /mnt -c 'passwd leonardo'` to create the user;
+- Use `nixos-install --flake /mnt/etc/nixos#<HOSTNAME>`;
+- Use `nixos-enter --root /mnt -c 'passwd <USERNAME>'` to create the user;
 - Reboot the system.
 
 ### 5.2. Post install notes
