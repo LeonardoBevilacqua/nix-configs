@@ -12,6 +12,7 @@
             users.leonardo = {
                 imports = [
                     # config.flake.modules.homeManager.common
+                    config.flake.modules.homeManager.dotfiles
                     config.flake.modules.homeManager.leonardo-bluesun
                 ];
             };
