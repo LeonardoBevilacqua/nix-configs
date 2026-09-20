@@ -36,6 +36,29 @@
         cosmic-term
       ];
 
+      specialisation = {
+        sway.configuration = {
+          # Disables cosmic desktop from base
+          services.displayManager.cosmic-greeter.enable = lib.mkForce false;
+          services.desktopManager.cosmic.enable = lib.mkForce false;
+          environment.cosmic.excludePackages = lib.mkForce [ ];
+          services.greetd.enable = lib.mkForce false;
+
+          programs.sway = {
+            enable = true;
+            wrapperFeatures.gtk = true;
+          };
+          security.polkit.enable = true;
+          services.displayManager.ly.enable = true;
+
+          environment.systemPackages = with pkgs; [
+            wl-clipboard
+            mako
+            waybar
+          ];
+        };
+      };
+
       services.xserver.xkb = {
         layout = "us";
         variant = "altgr_intl";
