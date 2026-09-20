@@ -28,25 +28,6 @@
 
       home.file = { };
 
-      xdg.configFile = {
-        "nvim" = {
-          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/nvim";
-          recursive = true;
-        };
-        "tmux" = {
-          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/tmux";
-          recursive = true;
-        };
-        "git" = {
-          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/git";
-          recursive = true;
-        };
-        "lazygit" = {
-          source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/lazygit";
-          recursive = true;
-        };
-      };
-
       home.sessionVariables = {
         EDITOR = "nvim";
       };
