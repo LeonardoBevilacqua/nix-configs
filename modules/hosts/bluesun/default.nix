@@ -56,6 +56,11 @@
           mako
           waybar
         ];
+
+        users.users.leodev = {
+          isNormalUser = true;
+          extraGroups = [ "wheel" ];
+        };
       };
     };
 
