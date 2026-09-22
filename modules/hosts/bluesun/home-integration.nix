@@ -22,7 +22,7 @@
             sway.configuration = {
                 home-manager.users.leodev = {
                     imports = [
-                        # config.flake.modules.homeManager.dotfiles
+                        config.flake.modules.homeManager.dotfiles
                         config.flake.modules.homeManager.leodev-bluesun
                     ];
                 };
