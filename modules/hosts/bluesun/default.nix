@@ -36,6 +36,14 @@
       cosmic-term
     ];
 
+    # GPU
+    hardware.graphics.enable = true;
+    services.xserver.videoDrivers = [ "nvidia" ];
+    hardware.nvidia = {
+        open = true;
+        modesetting.enable = true;
+    };
+
     specialisation = {
       sway.configuration = {
         # Disables cosmic desktop from base
@@ -44,7 +52,11 @@
         environment.cosmic.excludePackages = lib.mkForce [ ];
         services.greetd.enable = lib.mkForce false;
         programs.steam.enable = lib.mkForce false;
-
+        # Disables nvidia drivers, keeping the nouveau
+        hardware.nvidia.enable = lib.mkForce false;
+        hardware.nvidia.open = lib.mkForce false;
+        hardware.nvidia.modesetting.enable = lib.mkForce false;
+        services.xserver.videoDrivers = lib.mkForce [ "modesetting" "nouveau" ];
 
         programs.sway = {
           enable = true;
