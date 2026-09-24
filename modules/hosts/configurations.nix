@@ -21,7 +21,7 @@
             {
                 nixpkgs.pkgs = import inputs.nixpkgs-stable {
                     system = "x86_64-linux";
-                    # config.allowUnfree = true;
+                    config.allowUnfree = true;
                 };
             }
         ];

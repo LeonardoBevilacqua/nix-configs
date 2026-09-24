@@ -43,6 +43,8 @@
         services.desktopManager.cosmic.enable = lib.mkForce false;
         environment.cosmic.excludePackages = lib.mkForce [ ];
         services.greetd.enable = lib.mkForce false;
+        programs.steam.enable = lib.mkForce false;
+
 
         programs.sway = {
           enable = true;
@@ -74,7 +76,10 @@
       extraGroups = [ "wheel" ];
     };
 
-    programs.firefox.enable = true;
+    programs = {
+      firefox.enable = true;
+      steam.enable = true;
+    };
 
     environment.systemPackages = with pkgs; [
        vim
