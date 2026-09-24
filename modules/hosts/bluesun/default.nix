@@ -37,12 +37,15 @@
     ];
 
     # GPU
-    hardware.graphics.enable = true;
-    services.xserver.videoDrivers = [ "nvidia" ];
-    hardware.nvidia = {
-        open = true;
-        modesetting.enable = true;
-    };
+    # hardware.graphics = {
+    #   enable = true;
+    #   enable32Bit = true;
+    # };
+    # services.xserver.videoDrivers = [ "nvidia" ];
+    # hardware.nvidia = {
+    #     open = true;
+    #     modesetting.enable = true;
+    # };
 
     specialisation = {
       sway.configuration = {
@@ -53,10 +56,9 @@
         services.greetd.enable = lib.mkForce false;
         programs.steam.enable = lib.mkForce false;
         # Disables nvidia drivers, keeping the nouveau
-        hardware.nvidia.enable = lib.mkForce false;
-        hardware.nvidia.open = lib.mkForce false;
-        hardware.nvidia.modesetting.enable = lib.mkForce false;
-        services.xserver.videoDrivers = lib.mkForce [ "modesetting" "nouveau" ];
+        # hardware.nvidia.open = lib.mkForce false;
+        # hardware.nvidia.modesetting.enable = lib.mkForce false;
+        # services.xserver.videoDrivers = lib.mkForce [ "modesetting" "nouveau" ];
 
         programs.sway = {
           enable = true;
