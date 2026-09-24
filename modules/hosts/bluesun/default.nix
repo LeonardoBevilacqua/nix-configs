@@ -105,6 +105,15 @@
 
     services.openssh.enable = true;
 
+    services.jellyfin = {
+      enable = true;
+      openFirewall = true;
+    };
+    systemd.services.jellyfin = {
+      wantedBy = lib.mkForce [ ];
+    };
+    users.users.jellyfin.extraGroups = [ "video" "render" ];
+
     # Open ports in the firewall.
     # networking.firewall.allowedTCPPorts = [ ... ];
     # networking.firewall.allowedUDPPorts = [ ... ];
