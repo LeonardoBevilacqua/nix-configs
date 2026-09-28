@@ -12,24 +12,32 @@
         home.homeDirectory = "/home/leodev";
         home.stateVersion = "26.05";
         home.packages = neovimConfig.packages ++ devtools ++ [ pkgs.lua ];
-        programs.bash = {
-            enable = true;
-            historyControl = [ "ignoreboth" ];
-            shellOptions = [ "histappend" "checkwinsize" "extglob" "globstar" "checkjobs" ];
-            shellAliases = {
-                ls = "ls --color=auto";
-                bluesun-rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/nix-configs/#nixos-bluesun";
-                bluesun-rebuild-sway = "sudo nixos-rebuild switch --flake ~/dotfiles/nix-configs/#nixos-bluesun --specialisation sway";
-            };
-            initExtra = ''
-                bind 'set completion-ignore-case on'
+        programs = {
+            bash = {
+                enable = true;
+                historyControl = [ "ignoreboth" ];
+                shellOptions = [ "histappend" "checkwinsize" "extglob" "globstar" "checkjobs" ];
+                shellAliases = {
+                    ls = "ls --color=auto";
+                    bluesun-rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/nix-configs/#nixos-bluesun";
+                    bluesun-rebuild-sway = "sudo nixos-rebuild switch --flake ~/dotfiles/nix-configs/#nixos-bluesun --specialisation sway";
+                };
+                initExtra = ''
+                    bind 'set completion-ignore-case on'
 
-                PROMPT_COMMAND='PS1_CMD1=$(git branch --show-current 2>/dev/null)'
-                PS1='\[\033[01;32m\]\u ' # user in color green
-                PS1="$PS1"'\[\033[01;34m\]\W' # current working directory in color blue
-                PS1="$PS1"' \[\033[33m\]$PS1_CMD1 ' # git branch
-                PS1="$PS1"'\[\033[00m\]\n\$ ' # prompt in new line with color white
-            '';
+                    PROMPT_COMMAND='PS1_CMD1=$(git branch --show-current 2>/dev/null)'
+                    PS1='\[\033[01;32m\]\u ' # user in color green
+                    PS1="$PS1"'\[\033[01;34m\]\W' # current working directory in color blue
+                    PS1="$PS1"' \[\033[33m\]$PS1_CMD1 ' # git branch
+                    PS1="$PS1"'\[\033[00m\]\n\$ ' # prompt in new line with color white
+                '';
+            };
+
+            direnv = {
+              enable = true;
+              enableBashIntegration = true;
+              nix-direnv.enable = true;
+            };
         };
         xdg.configFile = {
             "sway" = {
