@@ -108,6 +108,7 @@
        vim
        alacritty
        git
+       heroic
      ];
 
     fonts.packages = with pkgs; [
