@@ -79,6 +79,7 @@
           wl-clipboard
           mako
           waybar
+          playerctl
         ];
 
         users.users.leodev = {
