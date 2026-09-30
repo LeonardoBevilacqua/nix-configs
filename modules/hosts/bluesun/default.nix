@@ -81,11 +81,6 @@
           waybar
           playerctl
         ];
-
-        users.users.leodev = {
-          isNormalUser = true;
-          extraGroups = [ "wheel" ];
-        };
       };
     };
 
@@ -94,9 +89,15 @@
       variant = "altgr_intl";
     };
 
-    users.users.leonardo = {
-      isNormalUser = true;
-      extraGroups = [ "wheel" ];
+    users.users = {
+      leonardo = {
+        isNormalUser = true;
+        extraGroups = [ "wheel" ];
+      };
+      leodev = {
+        isNormalUser = true;
+        extraGroups = [ "wheel" ];
+      };
     };
 
     programs = {
