@@ -110,6 +110,7 @@
        alacritty
        git
        heroic
+       gimp
      ];
 
     fonts.packages = with pkgs; [
