@@ -54,6 +54,7 @@
             persistencedSha256 = "sha256-3JQBaNmkwxvCXv9q8aHKas6VZM/JjLsuilC2t7ET0u0=";
         };
     };
+    hardware.bluetooth.enable = lib.mkForce false;
 
     specialisation = {
       sway.configuration = {
