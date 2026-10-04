@@ -6,12 +6,13 @@
       create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
       neovimConfig = import ../../shells/dev-env/neovim.nix { inherit pkgs; };
       devtools = import ../../shells/dev-env/devtools.nix { inherit pkgs; };
+      luaPackages = with pkgs; [ lua stylua lua-language-server ];
     in
     {
         home.username = "leodev";
         home.homeDirectory = "/home/leodev";
         home.stateVersion = "26.05";
-        home.packages = neovimConfig.packages ++ devtools ++ [ pkgs.lua pkgs.stylua ];
+        home.packages = neovimConfig.packages ++ devtools ++ luaPackages;
         programs = {
             bash = {
                 enable = true;
