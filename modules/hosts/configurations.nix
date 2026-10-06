@@ -15,7 +15,10 @@
 
     nixos-bluesun = inputs.nixpkgs-stable.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+            inherit inputs;
+            swayDesktopModule = config.flake.modules.nixos.sway-desktop;
+        };
         modules = [
             config.flake.modules.nixos.bluesun
             {
