@@ -39,5 +39,14 @@
                 playerctl
             ];
         };
+
+        virtualisation.podman = {
+            enable = true;
+            defaultNetwork.settings.dns_enabled = true;
+        };
+
+        users.users.leodev = {
+            extraGroups = [ "podman" ];
+        };
     };
 }
