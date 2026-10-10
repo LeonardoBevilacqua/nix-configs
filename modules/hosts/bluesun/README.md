@@ -7,7 +7,7 @@ Desktop used for development and entertainment.
 - [ ] Refactor sway specialisation:
     - [x] Move to own file;
     - [ ] Fix bleeding packages (heroic).
-- [ ] Add plymouth.
+- [x] Add plymouth.
 - [x] Fix `leodev` user losing password.
 - [x] Fix warnings:
     - `evaluation warning: leodev profile: The option 'qt.platformTheme' has been renamed to 'qt.platformTheme.name'.`
