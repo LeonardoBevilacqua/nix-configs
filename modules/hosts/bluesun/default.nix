@@ -33,6 +33,12 @@
         networking = {
             hostName = "bluesun";
             networkmanager.enable = true;
+            nameservers = [
+              "1.1.1.1"
+              "8.8.8.8"
+              "2606:4700:4700::1111" # Cloudflare IPv6
+              "2001:4860:4860::8888" # Google IPv6
+            ];
         };
 
         time.timeZone = "America/Sao_Paulo";
@@ -89,6 +95,7 @@
                 enable = true;
                 openFirewall = true;
             };
+            resolved.enable = true;
         };
 
 

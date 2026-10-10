@@ -12,7 +12,7 @@ Desktop used for development and entertainment.
 - [x] Fix warnings:
     - `evaluation warning: leodev profile: The option 'qt.platformTheme' has been renamed to 'qt.platformTheme.name'.`
     - `evaluation warning: leodev profile: The value 'gnome' for option 'qt.platformTheme' is deprecated. Use 'adwaita' instead.`
-- [ ] Update DNS server.
+- [x] Update DNS server.
 
 ## History
 
