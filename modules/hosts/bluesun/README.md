@@ -9,7 +9,7 @@ Desktop used for development and entertainment.
     - [ ] Fix bleeding packages (heroic).
 - [ ] Add plymouth.
 - [x] Fix `leodev` user losing password.
-- [ ] Fix warnings:
+- [x] Fix warnings:
     - `evaluation warning: leodev profile: The option 'qt.platformTheme' has been renamed to 'qt.platformTheme.name'.`
     - `evaluation warning: leodev profile: The value 'gnome' for option 'qt.platformTheme' is deprecated. Use 'adwaita' instead.`
 
