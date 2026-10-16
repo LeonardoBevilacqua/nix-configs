@@ -13,6 +13,7 @@ Desktop used for development and entertainment.
     - `evaluation warning: leodev profile: The option 'qt.platformTheme' has been renamed to 'qt.platformTheme.name'.`
     - `evaluation warning: leodev profile: The value 'gnome' for option 'qt.platformTheme' is deprecated. Use 'adwaita' instead.`
 - [x] Update DNS server.
+- [ ] Based on (Nixmap - NixOS users)[https://vimjoyer.com/nixmap/#nixos-users], add the `decription` for each user to have a better display name.
 
 ## History
 
