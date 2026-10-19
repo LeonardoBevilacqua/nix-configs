@@ -1,9 +1,10 @@
 {
   flake.modules.homeManager.leonardobevilacqua =
-    { config, ... }:
+    { config, pkgs, ... }:
     {
       home.username = "leonardobevilacqua";
       home.homeDirectory = "/Users/leonardobevilacqua";
+      home.packages = with pkgs; [ gh postgresql ];
       programs.alacritty.enable = true;
       xdg.configFile = {
         "alacritty" = {
