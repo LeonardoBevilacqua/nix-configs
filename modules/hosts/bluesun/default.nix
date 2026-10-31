@@ -1,8 +1,4 @@
-{
-  inputs,
-  swayDesktopModule,
-  ...
-}: {
+{...}: {
   flake.modules.nixos.bluesun = {
     config,
     lib,
