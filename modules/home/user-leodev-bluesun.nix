@@ -14,7 +14,7 @@
     home.username = "leodev";
     home.homeDirectory = "/home/leodev";
     home.stateVersion = "26.05";
-    home.packages = neovimConfig.packages ++ devtools ++ luaPackages ++ nixDevPackages;
+    home.packages = neovimConfig.packages ++ devtools ++ luaPackages ++ nixDevPackages ++ (with pkgs; [gcc]);
     programs = {
       bash = {
         enable = true;
