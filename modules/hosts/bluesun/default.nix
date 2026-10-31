@@ -116,10 +116,12 @@
       leonardo = {
         isNormalUser = true;
         extraGroups = ["wheel"];
+        description = "Leonardo";
       };
       leodev = {
         isNormalUser = true;
         extraGroups = ["wheel"];
+        description = "Developer";
       };
       jellyfin.extraGroups = ["video" "render"];
     };
