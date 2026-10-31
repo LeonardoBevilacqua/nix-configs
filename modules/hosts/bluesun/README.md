@@ -6,7 +6,7 @@ Desktop used for development and entertainment.
 
 - [ ] Refactor sway specialisation:
     - [x] Move to own file;
-    - [ ] Fix bleeding packages (heroic).
+    - [x] Fix bleeding packages (heroic).
 - [x] Add plymouth.
 - [x] Fix `leodev` user losing password.
 - [x] Fix warnings:

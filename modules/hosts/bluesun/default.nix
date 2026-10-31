@@ -117,6 +117,7 @@
         isNormalUser = true;
         extraGroups = ["wheel"];
         description = "Leonardo";
+        packages = with pkgs; [heroic];
       };
       leodev = {
         isNormalUser = true;
@@ -137,7 +138,6 @@
         vim
         alacritty
         git
-        heroic
         gimp
       ];
     };
