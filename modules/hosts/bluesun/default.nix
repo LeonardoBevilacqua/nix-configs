@@ -135,6 +135,7 @@
         alacritty
         git
         gimp
+        bitwarden-desktop
       ];
     };
 
