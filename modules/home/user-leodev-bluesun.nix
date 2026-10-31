@@ -7,12 +7,13 @@
       neovimConfig = import ../../shells/dev-env/neovim.nix { inherit pkgs; };
       devtools = import ../../shells/dev-env/devtools.nix { inherit pkgs; };
       luaPackages = with pkgs; [ lua stylua lua-language-server ];
+      nixDevPackages = with pkgs; [nixd alejandra];
     in
     {
         home.username = "leodev";
         home.homeDirectory = "/home/leodev";
         home.stateVersion = "26.05";
-        home.packages = neovimConfig.packages ++ devtools ++ luaPackages;
+        home.packages = neovimConfig.packages ++ devtools ++ luaPackages ++ nixDevPackages;
         programs = {
             bash = {
                 enable = true;
