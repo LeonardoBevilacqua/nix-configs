@@ -10,6 +10,7 @@
             shellAliases = {
                 bluesun-rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles/nix-configs/#nixos-bluesun";
                 bluesun-rebuild-sway = "sudo nixos-rebuild switch --flake ~/dotfiles/nix-configs/#nixos-bluesun --specialisation sway";
+                bluesun-update = "nix flake update nixpkgs-stable home-manager-stable";
             };
         };
     };
